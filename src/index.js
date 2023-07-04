@@ -5,6 +5,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom';
 
 //console.log(firebase);
 
@@ -12,9 +13,9 @@ import "firebase/compat/storage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <BrowserRouter>
     <App />
-  </React.StrictMode>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
