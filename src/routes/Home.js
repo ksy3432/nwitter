@@ -1,30 +1,21 @@
-import { addDoc, collection, query, getDocs, onSnapshot, where, orderBy } from "@firebase/firestore";
+import { addDoc, collection, query, updateDoc, onSnapshot, where, orderBy, deleteDoc, getFirestore} from "@firebase/firestore";
+import Nweet from "components/Nweet";
 import { dbService } from "fbase";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 
 const Home = ({ userObj }) => {
     const [nweet, setNweet] = useState("");
     const [nweets,setNweets] = useState([]);
-    const getNweets = async () => {
-        const dbNweets = await getDocs(collection(dbService,"nweets"));
-        dbNweets.forEach((document) => {
-          const nweetObject = {
-            ...document.data(),
-            id: document.id,
-          };
-          setNweets((prev) => [nweetObject, ...prev]);
-        });
-      };
     useEffect(() => {
         const q = query(
-        collection(dbService, "nweets"),
-        orderBy("createdAt", "desc")
+            collection(dbService, "nweets"),
+            orderBy("createdAt", "desc")
         );
-    onSnapshot(q, (snapshot) => {
-        const nweetArr = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-        }));
+        onSnapshot(q, (snapshot) => {
+            const nweetArr = snapshot.docs.map((docs) => ({
+                id: docs.id,
+                ...docs.data()
+            }));
             setNweets(nweetArr);
         });
     }, []);
@@ -60,12 +51,12 @@ const Home = ({ userObj }) => {
             </form>
             <div>
                 {nweets.map((nweet) => (
-                <div key={nweet.id}>
-                    <h4>{nweet.nweet}</h4>
-                </div>
+                <Nweet key={nweet.id}
+                        nweetObj={nweet} 
+                        isOwner={nweet.createdid === userObj.uid} />
                 ))}
             </div>
         </div>
-    )
+    );
 };
 export default Home;
