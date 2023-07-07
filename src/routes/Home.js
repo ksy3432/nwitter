@@ -2,7 +2,7 @@ import { addDoc, collection, query, updateDoc, onSnapshot, where, orderBy, delet
 import Nweet from "components/Nweet";
 import { dbService, storageService } from "fbase";
 import React, { useEffect, useState} from "react";
-import { getDownloadURL, ref, uploadBytes, uploadString } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes, getStorage, uploadString } from "firebase/storage";
 import { v4 } from "uuid";
 
 const Home = ({ userObj }) => {
@@ -30,31 +30,16 @@ const Home = ({ userObj }) => {
         const attachmentRef = ref(storageService,`${userObj.uid}/${v4()}`);
         const response = await uploadString(attachmentRef,attachment,"data_url");
         const attachmentUrl = await getDownloadURL(response.ref);
-        
+        //const img = document.getElementById('myimg');
+        //img.setAttribute('src', attachmentUrl);
+
+
         const nweetObj = {
             text : nweet,
             createdAt : Date.now(),
             createdid : userObj.uid,
             attachmentUrl,
         };
-
-        /*
-        const storageRef = ref(storageService,"some child");
-        uploadBytes(storageRef, file).then((snapshot) => {
-            console.log('Upload a blob or file!');
-        });
-        */
-        /*
-        try {
-            const docRef = await addDoc(collection(dbService, "nweets"), {
-            text :nweet,
-            createdAt: Date.now(),
-            createdid : userObj.uid,
-        });
-        console.log("Document written with ID: ", docRef.id);
-        } catch (error) {
-        console.error("Error adding document: ", error);
-        }*/
         
         await addDoc(collection(dbService,"nweets"),nweetObj);
         setNweet("");
@@ -67,6 +52,7 @@ const Home = ({ userObj }) => {
             } = event;
             setNweet(value);
         };
+
         const onFileChange = (event) => {
             const {
                 target : {files},
@@ -96,8 +82,7 @@ const Home = ({ userObj }) => {
                 {attachment && (
                 <div>
                     <img src={attachment} width="50px" height="50px" />
-                    <button onClick={onClearAttachment}>Clear Image</button>
-                </div>
+                    <button onClick={onClearAttachment}>Clear Image</button>                </div>
                 )}
             </form>  
              <div>
