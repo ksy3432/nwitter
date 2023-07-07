@@ -5,7 +5,7 @@ import React, { useEffect, useState} from "react";
 import { getDownloadURL, ref, uploadBytes, getStorage, uploadString } from "firebase/storage";
 import { v4 } from "uuid";
 
-const Home = ({ userObj }) => {
+export default ({ userObj }) => {
     const [nweet, setNweet] = useState("");
     const [nweets,setNweets] = useState([]);
     const [attachment, setAttachment] = useState("");
@@ -25,11 +25,14 @@ const Home = ({ userObj }) => {
    
     const onSubmit = async (event) => {
         event.preventDefault();
-        //let attachmentUrl = "";
+        let attachmentUrl = "";
 
-        const attachmentRef = ref(storageService,`${userObj.uid}/${v4()}`);
-        const response = await uploadString(attachmentRef,attachment,"data_url");
-        const attachmentUrl = await getDownloadURL(response.ref);
+        if(attachment != ""){
+            const attachmentRef = ref(storageService,`${userObj.uid}/${v4()}`);
+            const response = await uploadString(attachmentRef,attachment,"data_url");
+            attachmentUrl = await getDownloadURL(response.ref);
+        }
+       
         //const img = document.getElementById('myimg');
         //img.setAttribute('src', attachmentUrl);
 
@@ -82,10 +85,11 @@ const Home = ({ userObj }) => {
                 {attachment && (
                 <div>
                     <img src={attachment} width="50px" height="50px" />
-                    <button onClick={onClearAttachment}>Clear Image</button>                </div>
+                    <button onClick={onClearAttachment}>Clear Image</button>                
+            </div>
                 )}
             </form>  
-             <div>
+            <div>
                 {nweets.map((nweet) => (
                 <Nweet key={nweet.id}
                         nweetObj={nweet} 
@@ -95,4 +99,4 @@ const Home = ({ userObj }) => {
         </div>
     );
 };
-export default Home;
+//export default Home;
