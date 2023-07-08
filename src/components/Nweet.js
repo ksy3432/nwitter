@@ -27,7 +27,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
     setEditing(false);
   };
 
-  const onchange = (event) => {
+  const onChange = (event) => {
     const {
       target : {value}
     } = event;
@@ -39,16 +39,16 @@ const Nweet = ({ nweetObj, isOwner }) => {
         <>
         {isOwner && (
           <>
-          <form onSubmit={onsubmit} className="container nweetEdit">
+          <form onSubmit={onSubmit} className="container nweetEdit">
             <input type="text" 
               placeholder="Edit your Nweet"
               value={newNweet}
               required
               autoFocus
-              onChange={onchange}
+              onChange={onChange}
               className="formInput"
             />
-            <input type="submit" value="Update Nweet" onClick={onSubmit} className="formBtn" />
+            <input type="submit" value="Update Nweet" className="formBtn" />
           </form>
           <span onClick={toggleEditing} className="formBtn cancelBtn">Calcel</span>
         </> 
@@ -59,7 +59,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
           <h4>{nweetObj.text}</h4>
           {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} />}
           {isOwner && (
-            <div class="nweet__actions">
+            <div className="nweet__actions">
               <span onClick={deleteNweet}>
                 <FontAwesomeIcon icon={faTrash} />
               </span>

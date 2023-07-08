@@ -1,12 +1,13 @@
 import { addDoc, collection, query, updateDoc, onSnapshot, where, orderBy, deleteDoc, getFirestore} from "@firebase/firestore";
 import Nweet from "components/Nweet";
-import { dbService, storageService } from "fbase";
-import React, { useEffect, useState} from "react";
-import { getDownloadURL, ref, uploadBytes, getStorage, uploadString } from "firebase/storage";
 import NweetFactory from "components/NweetFactory";
+import { dbService, storageService } from "fbase";
+import React, { useEffect, useRef, useState} from "react";
+
 
 export default ({ userObj }) => {
     const [nweets,setNweets] = useState([]);
+
     useEffect(() => {
         const q = query(
             collection(dbService, "nweets"),
@@ -22,9 +23,9 @@ export default ({ userObj }) => {
     }, []);
 
     return (
-        <div className="container">
-            <NweetFactory userObj={userObj} />
-            <div style={{ marginTop: 30 }}>
+        <div>
+            <NweetFactory userObj={userObj} />  
+            <div>
                 {nweets.map((nweet) => (
                 <Nweet key={nweet.id}
                         nweetObj={nweet} 
@@ -34,4 +35,3 @@ export default ({ userObj }) => {
         </div>
     );
 };
-//export default Home;
