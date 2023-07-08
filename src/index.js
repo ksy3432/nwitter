@@ -6,6 +6,7 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom';
+import "./style.css"
 
 //console.log(firebase);
 

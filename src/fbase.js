@@ -5,12 +5,12 @@ import { getStorage } from "@firebase/storage"
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDwna1vrCRx1Q2NTxQUQAZLCrpWZ-C9FtQ",
-  authDomain: "nwitter-b14ca.firebaseapp.com",
-  projectId: "nwitter-b14ca",
-  storageBucket: "nwitter-b14ca.appspot.com",
-  messagingSenderId: "132744204140",
-  appId: "1:132744204140:web:998c557a3180307061ad49"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTO_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_SRORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
+  appId: process.env.REACT_APP_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
