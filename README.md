@@ -1,3 +1,3 @@
 # Twitter cloning project using react and firebase
 
-result : nwitter-b14ca.web.app
+result : <a herf="nwitter-b14ca.web.app">deployed page</a>
