@@ -17,7 +17,7 @@ const Auth = () => {
         } else if (name === "github") {
             provider = new GithubAuthProvider();
         }
-        const data = await signInWithPopup(authService,provider);
+        const data = await signInWithPopup(authService,provider,browserPopupRedirectResolver);
         console.log(data);
         };
     
